@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>API Practice</title>
+</head>
+<body>
+  <div>
+    <img src="" alt="">
+    <button>Random cat picture!</button>
+    <form action="">
+        <label for="search">Search for gifs:</label>
+        <input type="search" id="search">
+    </form>
+  </div>
+  <script>
+    const img = document.querySelector('img');
+    const button = document.querySelector('button');
+    const form = document.querySelector('form');
+    const search = document.querySelector('input');
+
+    fetch('https://api.giphy.com/v1/gifs/translate?api_key=Z5RtD0KLAUQoWEXA5dyKNds33O9xxbRl&s=cats', {mode: 'cors'})
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        img.src = response.data.images.original.url;
+      });
+    
+    button.addEventListener('click', () => {
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=Z5RtD0KLAUQoWEXA5dyKNds33O9xxbRl&s=cats', {mode: 'cors'})
+          .then(function(response) {
+              return response.json();
+          })
+          .then(function(response) {
+              img.src = response.data.images.original.url;
+          });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const searchItem = search.value;
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Z5RtD0KLAUQoWEXA5dyKNds33O9xxbRl&s=${searchItem}`, {mode: 'cors'})
+          .then(function(response) {
+              return response.json();
+          })
+          .then(function(response) {
+              img.src = response.data.images.original.url;
+          });
+    });
+    
+  </script>
+</body>
+</html>
